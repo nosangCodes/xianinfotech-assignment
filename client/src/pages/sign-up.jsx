@@ -4,11 +4,20 @@ import SignUpForm from '../components/sign-up-form'
 export default function SignUp() {
   return (
     <section>
-      <div className="bg-primary rounded-md overflow-clip min-h-[800px] mx-[6rem] my-[4rem] flex">
-        <div className="w-full">
-          <img className='object-cover h-full w-full' src="/sign-up-image.png" alt="sign up image " />
+      <div className="bg-primary rounded-md mx-4 md:mx-[6rem] my-[4rem] flex md:items-center md:h-[140vh]">
+        {/* Image Section */}
+        <div className="w-1/2 h-full max-md:hidden">
+          <img
+            className="object-cover w-full h-full rounded-l-md"
+            src="/sign-up-image.png"
+            alt="sign up image"
+          />
         </div>
-        <SignUpForm className={' bg-primary'} />
+
+        {/* Form Section */}
+        <div className="w-full md:w-1/2">
+          <SignUpForm className="bg-primary" />
+        </div>
       </div>
     </section>
   )
