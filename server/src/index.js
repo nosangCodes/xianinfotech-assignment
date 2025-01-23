@@ -1,12 +1,13 @@
 import express from "express";
 import { config } from "dotenv";
-// import routes from "./routes";
+import routes from "./routes/index.js";
 import bodyParser from "body-parser";
 import cors from "cors";
 config();
 
 const app = express();
 app.use(bodyParser.json());
+
 const allowedDomains = ["http://localhost:3000", "https://example.com"];
 const corsOptions = {
   origin: function (origin, callback) {
@@ -23,7 +24,7 @@ const corsOptions = {
 // Use CORS middleware with the configured options
 app.use(cors(corsOptions));
 
-// app.use("/api", routes);
+app.use("/api", routes);
 
 app.listen(process.env.PORT || 4000, () => {
   console.log("server listening on ", process.env.PORT || 4000);

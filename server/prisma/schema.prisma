@@ -24,7 +24,7 @@ model User {
   email String @unique
   state String
   password String
-  status Boolean
+  status Boolean @default(true)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
