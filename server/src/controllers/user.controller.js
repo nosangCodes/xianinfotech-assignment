@@ -10,3 +10,20 @@ export async function userList(req, res) {
     return res.status(status.INTERNAL_SERVER_ERROR, error);
   }
 }
+
+export async function userById(req, res) {
+  try {
+    const userId = req.params?.userId;
+    if (!userId) {
+      return res.status(status.BAD_REQUEST).json({
+        error: "missing params",
+      });
+    }
+
+    const user = await userService.userById(userId);
+    return res.json(user);
+  } catch (error) {
+    console.error("ERROR FETCHING USER LIST", error);
+    return res.status(status.INTERNAL_SERVER_ERROR, error);
+  }
+}

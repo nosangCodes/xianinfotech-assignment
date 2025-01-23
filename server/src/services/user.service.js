@@ -31,3 +31,26 @@ export async function userList() {
     throw error;
   }
 }
+
+export async function userById(userId) {
+  try {
+    const user = await db.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        id: true,
+        username: true,
+        firstName: true,
+        lastName: true,
+        phone: true,
+        email: true,
+        state: true,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.error("ERROR FETCHING USERS LIST");
+    throw error;
+  }
+}
