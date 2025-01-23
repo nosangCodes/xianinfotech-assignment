@@ -8,11 +8,12 @@ export const generateToken = (userId) => {
     expiresIn: "12h",
   });
 };
+
 export const generateRefreshToken = (userId) => {
-  if (!process.env.SECRET_KEY) {
+  if (!process.env.REFRESH_SECRET_KEY) {
     throw Error("jwt secret  is missing");
   }
-  return jwt.sign({ userId }, process.env.SECRET_KEY, {
+  return jwt.sign({ userId }, process.env.REFRESH_SECRET_KEY, {
     expiresIn: "7d",
   });
 };

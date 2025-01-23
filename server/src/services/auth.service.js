@@ -25,3 +25,22 @@ export async function getUserByEmail(email) {
     throw error;
   }
 }
+
+export async function getUserByUserName(username) {
+  try {
+    const user = await db.user.findUnique({
+      where: {
+        username,
+      },
+      select: {
+        id: true,
+        username: true,
+        password: true,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.error("ERROR FETCHING USER BY USERNAME");
+    throw error;
+  }
+}
