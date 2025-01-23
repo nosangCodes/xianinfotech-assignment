@@ -54,3 +54,18 @@ export async function userById(userId) {
     throw error;
   }
 }
+
+export async function updateUser(userId, updateBody) {
+  try {
+    const res = await db.user.update({
+      where: {
+        id: userId,
+      },
+      data: updateBody,
+    });
+    return res;
+  } catch (error) {
+    console.error("ERROR UPDATING USER", error);
+    throw error;
+  }
+}

@@ -25,7 +25,7 @@ export async function registerUser(req, res) {
     if (newUser?.id) {
       const accessToken = generateToken(newUser.id);
       const refreshToken = generateRefreshToken(newUser.id);
-      return res.json({
+      return res.status(status.CREATED).json({
         message: "user created successfully",
         data: {
           accessToken,

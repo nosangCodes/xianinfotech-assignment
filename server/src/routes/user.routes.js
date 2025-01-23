@@ -5,5 +5,6 @@ const router = Router();
 
 router.get("/", verifyBearerToken, userController.userList);
 router.get("/:userId", verifyBearerToken, userController.userById);
+router.patch("/:userId", verifyBearerToken, userController.updateUser);
 
 export default router;
