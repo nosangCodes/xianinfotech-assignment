@@ -4,6 +4,7 @@ import Input from './input'
 import Button from './button'
 import { useForm } from 'react-hook-form'
 import PasswordInput from './password-input'
+import { Link } from 'react-router'
 
 export default function SignUpForm({ className, ...props }) {
   const {
@@ -20,7 +21,12 @@ export default function SignUpForm({ className, ...props }) {
   }
 
   return (
-    <div className={twMerge('w-full overflow-hidden py-[4rem] px-[2rem]', className)}>
+    <div
+      className={twMerge(
+        'w-full overflow-hidden py-[4rem] px-[2rem]',
+        className,
+      )}
+    >
       <div className="flex flex-col gap-1 justify-center items-center">
         <h2 className="text-primary-foreground text-4xl font-semibold">
           Sign Up
@@ -200,12 +206,14 @@ export default function SignUpForm({ className, ...props }) {
 
         {/* Buttons */}
         <div className="flex flex-row gap-x-6 mt-4">
-          <Button type="submit" className="w-full bg-black py-2 text-lg">
+          <Button type="submit" className="w-full bg-black text-white py-2 text-lg">
             Register
           </Button>
-          <Button type="button" className="w-full py-2 text-lg">
-            Login
-          </Button>
+          <Link className="w-full" to={'/auth/sign-in'}>
+            <Button type="button" className="w-full py-2 text-lg">
+              Login
+            </Button>
+          </Link>
         </div>
       </form>
     </div>

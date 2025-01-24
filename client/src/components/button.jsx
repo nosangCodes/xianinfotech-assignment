@@ -2,8 +2,8 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 
 const variants = {
-  default: '',
-  outline: 'bg-white text-primary',
+  default: 'bg-white text-primary',
+  outline: '',
 }
 export default function Button({ className, variant = 'default', ...props }) {
   return (
