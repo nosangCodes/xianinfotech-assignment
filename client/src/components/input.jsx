@@ -11,7 +11,7 @@ const Input = React.forwardRef(
     return (
       <div
         className={twMerge(
-          'border flex flex-row items-center bg-primary-foreground rounded-md border-primary-foreground focus-within:ring-1 ring-cyan-100 focus-within:shadow-md',
+          'border flex flex-row items-center bg-primary-foreground rounded-md border-primary-foreground focus-within:ring-1 ring-cyan-100 focus-within:shadow-md disabled:opacity-70',
           className,
         )}
       >

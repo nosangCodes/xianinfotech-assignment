@@ -1,10 +1,13 @@
 import React from 'react'
-import { Outlet } from 'react-router'
+import { Navigate, Outlet } from 'react-router'
 import AuthNav from './auth-nav'
 import Footer from '../components/footer'
+import { useSelector } from 'react-redux'
 
 export default function AuthLayout() {
-  return (
+  const { isLoggedIn } = useSelector((state) => state.auth)
+
+  return !isLoggedIn ? (
     <section className="flex flex-col min-h-screen">
       <AuthNav />
       <div className="flex-1">
@@ -12,5 +15,7 @@ export default function AuthLayout() {
       </div>
       <Footer />
     </section>
+  ) : (
+    <Navigate to={'/admin/users'} />
   )
 }

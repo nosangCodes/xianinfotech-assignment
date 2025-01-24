@@ -2,19 +2,41 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 import Input from './input'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import Button from './button'
 import PasswordInput from './password-input'
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { saveLoggedInData } from '../freatures/auth-slice'
 
 export default function SignInForm({ className }) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isLoading, isSubmitting },
   } = useForm()
 
-  const onSubmit = (data) => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const loading = isLoading || isSubmitting
+
+  const onSubmit = async (data) => {
     console.log('Form Submitted:', data)
+    const res = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
+      data,
+    )
+    if (res.status === 200) {
+      // loggedin successfully
+      dispatch(
+        saveLoggedInData({
+          ...res.data?.data,
+        }),
+      )
+      // redirect to /
+      navigate('/')
+    }
   }
   return (
     <div
@@ -41,6 +63,7 @@ export default function SignInForm({ className }) {
             Email Address
           </label>
           <Input
+            disabled={loading}
             name="email"
             type="email"
             {...register('email', { required: 'Email address is required' })}
@@ -56,6 +79,7 @@ export default function SignInForm({ className }) {
             Password
           </label>
           <PasswordInput
+            disabled={loading}
             name="password"
             {...register('password', { required: 'Password is required' })}
           />
@@ -68,11 +92,15 @@ export default function SignInForm({ className }) {
             Forgot Password?
           </Link>
         </div>
-        <Button type="submmit" className={'w-fit px-[3.3rem]'}>
+        <Button
+          disabled={loading}
+          type="submmit"
+          className={'w-fit px-[3.3rem]'}
+        >
           Login
         </Button>
         <Link to={'/auth/sign-up'} className="text-primary-foreground">
-          Don’t have an account?
+          Don&apos;t have an account?
           <span className="font-semibold"> Sign Up</span>
         </Link>
       </form>

@@ -4,20 +4,46 @@ import Input from './input'
 import Button from './button'
 import { useForm } from 'react-hook-form'
 import PasswordInput from './password-input'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { saveLoggedInData } from '../freatures/auth-slice'
 
 export default function SignUpForm({ className, ...props }) {
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isLoading, isSubmitting },
   } = useForm()
 
+  const loading = isLoading || isSubmitting
   const password = watch('password') // Watch the password field
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log('Form Submitted:', data)
+    delete data.confirmPassword
+    delete data.agreeTerms
+
+    const res = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/api/auth/register`,
+      {
+        ...data,
+        userType: 'CLIENT',
+      },
+    )
+    if (res.status === 201) {
+      // loggedin successfully
+      dispatch(
+        saveLoggedInData({
+          ...res.data?.data,
+        }),
+      )
+      // redirect to /
+      navigate('/')
+    }
   }
 
   return (
@@ -47,8 +73,9 @@ export default function SignUpForm({ className, ...props }) {
               First Name
             </label>
             <Input
-              name="firstName"
-              {...register('firstName', { required: 'First Name is required' })}
+            disabled={loading}
+            name="firstName"
+            {...register('firstName', { required: 'First Name is required' })}
             />
             {errors.firstName && (
               <p className="text-rose-600 tracking-wide text-sm font-semibold">
@@ -63,6 +90,7 @@ export default function SignUpForm({ className, ...props }) {
               Last Name
             </label>
             <Input
+            disabled={loading}
               name="lastName"
               {...register('lastName', { required: 'Last Name is required' })}
             />
@@ -80,8 +108,9 @@ export default function SignUpForm({ className, ...props }) {
             Contact No.
           </label>
           <Input
-            name="contactNo"
-            {...register('contactNo', {
+            disabled={loading}
+            name="phone"
+            {...register('phone', {
               required: 'Contact number is required',
               pattern: {
                 value: /^[0-9]+$/,
@@ -89,9 +118,9 @@ export default function SignUpForm({ className, ...props }) {
               },
             })}
           />
-          {errors.contactNo && (
+          {errors.phone && (
             <p className="text-rose-600 tracking-wide text-sm font-semibold">
-              {errors.contactNo.message}
+              {errors.phone.message}
             </p>
           )}
         </div>
@@ -102,8 +131,10 @@ export default function SignUpForm({ className, ...props }) {
             WhatsApp No.
           </label>
           <Input
-            name="whatsAppNo"
-            {...register('whatsAppNo', {
+            disabled={loading}
+
+            name="whatsappNo"
+            {...register('whatsappNo', {
               required: 'WhatsApp number is required',
               pattern: {
                 value: /^[0-9]+$/,
@@ -111,25 +142,40 @@ export default function SignUpForm({ className, ...props }) {
               },
             })}
           />
-          {errors.whatsAppNo && (
+          {errors.whatsappNo && (
             <p className="text-rose-600 tracking-wide text-sm font-semibold">
-              {errors.whatsAppNo.message}
+              {errors.whatsappNo.message}
             </p>
           )}
         </div>
 
         {/* Username */}
         <div className="flex flex-col gap-y-3">
-          <label className="text-primary-foreground text-[16px]">
-            Username
-          </label>
+          <label className="text-primary-foreground text-[16px]">Email</label>
           <Input
-            name="username"
-            {...register('username', { required: 'Username is required' })}
+            disabled={loading}
+
+            name="email"
+            {...register('email', { required: 'Email is required' })}
           />
-          {errors.username && (
+          {errors.email && (
             <p className="text-rose-600 tracking-wide text-sm font-semibold">
-              {errors.username.message}
+              {errors.email.message}
+            </p>
+          )}
+        </div>
+        {/* State */}
+        <div className="flex flex-col gap-y-3">
+          <label className="text-primary-foreground text-[16px]">State</label>
+          <Input
+            disabled={loading}
+
+            name="state"
+            {...register('state', { required: 'State is required' })}
+          />
+          {errors.state && (
+            <p className="text-rose-600 tracking-wide text-sm font-semibold">
+              {errors.state.message}
             </p>
           )}
         </div>
@@ -140,6 +186,8 @@ export default function SignUpForm({ className, ...props }) {
             Password
           </label>
           <PasswordInput
+            disabled={loading}
+
             name="password"
             type="password"
             {...register('password', {
@@ -163,6 +211,8 @@ export default function SignUpForm({ className, ...props }) {
             Confirm Password
           </label>
           <PasswordInput
+            disabled={loading}
+
             name="confirmPassword"
             type="password"
             {...register('confirmPassword', {
@@ -206,11 +256,19 @@ export default function SignUpForm({ className, ...props }) {
 
         {/* Buttons */}
         <div className="flex flex-row gap-x-6 mt-4">
-          <Button type="submit" className="w-full bg-black text-white py-2 text-lg">
+          <Button
+            disabled={loading}
+            type="submit"
+            className="w-full bg-black text-white py-2 text-lg"
+          >
             Register
           </Button>
           <Link className="w-full" to={'/auth/sign-in'}>
-            <Button type="button" className="w-full py-2 text-lg">
+            <Button
+              disabled={loading}
+              type="button"
+              className="w-full py-2 text-lg"
+            >
               Login
             </Button>
           </Link>
