@@ -22,15 +22,7 @@ function App() {
           <Route path="sign-in" element={<SignIn />} />
         </Route>
         <Route path="admin" element={<AdminLayout />}>
-          <Route
-            path="users"
-            element={
-              <div>
-                <Users />
-                <Logout />
-              </div>
-            }
-          />
+          <Route path="users" element={<Users />} />
         </Route>
       </Routes>
     </Provider>
