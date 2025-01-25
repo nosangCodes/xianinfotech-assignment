@@ -43,7 +43,7 @@ export async function registerUser(req, res) {
 
 export async function login(req, res) {
   try {
-    const userExists = await authService.getUserByUserName(req.body.username);
+    const userExists = await authService.getUserByEmail(req.body.email);
     if (!userExists) {
       return res.status(status.BAD_REQUEST).json({
         error: "Invalid credentials",

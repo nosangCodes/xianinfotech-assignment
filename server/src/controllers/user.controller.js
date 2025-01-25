@@ -3,7 +3,9 @@ import { userService } from "../services/index.js";
 
 export async function userList(req, res) {
   try {
-    const users = await userService.userList();
+    const page = req.query?.page;
+    const limit = req.query?.limit;
+    const users = await userService.userList(page, limit);
     return res.json(users);
   } catch (error) {
     console.error("ERROR FETCHING USER LIST", error);
@@ -49,6 +51,24 @@ export async function updateUser(req, res) {
     });
   } catch (error) {
     console.error("ERROR UPDATING USER", error);
+    return res.status(status.INTERNAL_SERVER_ERROR, error);
+  }
+}
+
+export async function searchByName(req, res) {
+  try {
+    const search = req.query?.search;
+    if (!search) {
+      return res.status(status.BAD_REQUEST).json({
+        error: "missing queries",
+      });
+    }
+    
+    const users = await userService.searchByName(search);
+    console.log("🚀 ~ searchByName ~ users:", users);
+    return res.json({ users });
+  } catch (error) {
+    console.error("ERROR SEARCHING USER", error);
     return res.status(status.INTERNAL_SERVER_ERROR, error);
   }
 }

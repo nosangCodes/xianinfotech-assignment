@@ -8,7 +8,7 @@ config();
 const app = express();
 app.use(bodyParser.json());
 
-const allowedDomains = ["http://localhost:3000", "https://example.com"];
+const allowedDomains = ["http://localhost:5173", "https://example.com"];
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedDomains.indexOf(origin) !== -1) {

@@ -1,13 +1,10 @@
 import db from "../db/index.js";
 
-export async function userList() {
-  const PAGE = 1;
-  const LIMIT = 10;
-
+export async function userList(page = 1, limit = 10) {
   try {
     const users = await db.user.findMany({
-      skip: (PAGE - 1) * LIMIT,
-      take: LIMIT,
+      skip: (page - 1) * limit,
+      take: limit,
       where: {
         userType: "CLIENT",
       },
@@ -24,8 +21,8 @@ export async function userList() {
       },
     });
     const items = await db.user.count();
-    const pages = Math.ceil(items / LIMIT);
-    return { users, page: PAGE, limit: LIMIT, items, pages };
+    const pages = Math.ceil(items / limit);
+    return { users, page: page, limit: limit, items, pages };
   } catch (error) {
     console.error("ERROR FETCHING USERS LIST");
     throw error;
@@ -67,5 +64,48 @@ export async function updateUser(userId, updateBody) {
   } catch (error) {
     console.error("ERROR UPDATING USER", error);
     throw error;
+  }
+}
+
+export async function searchByName(search = "") {
+  try {
+    const res = await db.user.findMany({
+      where: {
+        userType: "CLIENT",
+        OR: [
+          {
+            firstName: {
+              contains: search,
+              mode: "insensitive", // Case-insensitive search
+            },
+          },
+          {
+            lastName: {
+              contains: search,
+              mode: "insensitive", // Case-insensitive search
+            },
+          },
+        ],
+      },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        phone: true,
+        status: true,
+      },
+    });
+    return res;
+  } catch (error) {
+    console.error("ERROR SEARCHING USER", error);
+    throw error;
+  }
+}
+
+export async function updateUserById(userId, updateBody) {
+  try {
+  } catch (error) {
+    console.error("");
   }
 }
