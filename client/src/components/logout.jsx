@@ -3,11 +3,14 @@ import Button from './button'
 import { useDispatch } from 'react-redux'
 import { destroyLoggedInData } from '../freatures/auth-slice'
 
-export default function Logout() {
+export default function Logout({ className }) {
   const dispatch = useDispatch()
   return (
-    <div>
-      <Button onClick={() => dispatch(destroyLoggedInData())}>Logout</Button>
-    </div>
+    <Button
+      className={className}
+      onClick={() => dispatch(destroyLoggedInData())}
+    >
+      Logout
+    </Button>
   )
 }

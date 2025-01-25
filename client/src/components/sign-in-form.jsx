@@ -66,6 +66,7 @@ export default function SignInForm({ className }) {
             disabled={loading}
             name="email"
             type="email"
+            icon="profile"
             {...register('email', { required: 'Email address is required' })}
           />
           {errors.email && (

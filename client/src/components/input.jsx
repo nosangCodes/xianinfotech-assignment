@@ -4,6 +4,8 @@ import { twMerge } from 'tailwind-merge'
 const icons = {
   profile: '/profile.svg',
   phone: '/phone.svg',
+  whatsapp: '/whatsapp.svg',
+  mail: '/mail.svg',
 }
 
 const Input = React.forwardRef(({ className, icon, ...props }, ref) => {

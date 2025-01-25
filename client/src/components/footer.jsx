@@ -2,15 +2,15 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <footer className="bg-primary w-full px-[4rem] py-[2rem] pb-3 text-primary-foreground">
-      <div className="grid grid-cols-6 gap-x-6 border-b-1 border-b-white pb-[3rem] mb-[1rem]">
-        <div className="col-span-2 flex flex-col gap-2 mr-[6rem]">
+    <footer className="bg-primary w-full px-[2rem] md:px-[4rem] py-[2rem] pb-3 text-primary-foreground">
+      <div className="grid grid-cols-3 max-md:gap-4 md:grid-cols-6 md:gap-x-6 border-b-1 border-b-white pb-[3rem] mb-[1rem]">
+        <div className="col-span-3  md:col-span-2 flex flex-col gap-2 md:mr-[6rem]">
           <img
             src="/logo.png"
             alt="company logo"
             className="h-[100px] w-1/2 "
           />
-          <p className="line-clamp-3 mr-[1.4rem] font-[16px]">
+          <p className="line-clamp-3 md:mr-[1.4rem] font-[16px]">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum, quia!
             Lorem ipsum dolor sit amet consectetur
           </p>
@@ -22,14 +22,22 @@ export default function Footer() {
             <li className="text-sm">Privacy Policy</li>
           </ul>
         </div>
-        <div className="">
+        <div className="max-md:col-span-2">
           <ul className="flex flex-col gap-y-2 text-sm">
             <li>Terms & conditions</li>
             <li>Contact Support</li>
             <li className="flex gap-4">
               <img src="/fb.svg" className="max-h-[28px]" alt="facebook logo" />
-              <img src="/insta.svg" className="max-h-[28px]" alt="instagram logo" />
-              <img src="/linkedIn.svg" className="max-h-[28px]" alt="linkedIn logo" />
+              <img
+                src="/insta.svg"
+                className="max-h-[28px]"
+                alt="instagram logo"
+              />
+              <img
+                src="/linkedIn.svg"
+                className="max-h-[28px]"
+                alt="linkedIn logo"
+              />
               <img src="/skype.svg" className="max-h-[28px]" alt="skype logo" />
             </li>
           </ul>

@@ -5,7 +5,6 @@ import { saveLoggedInData } from '../freatures/auth-slice'
 export default function CheckLocalStorage() {
   const dispatch = useDispatch()
 
-  console.log('root rendered')
   useEffect(() => {
     if (window.localStorage) {
       const accessToken = window.localStorage.getItem('admin-access-token')

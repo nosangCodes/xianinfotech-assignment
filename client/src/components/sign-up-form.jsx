@@ -72,9 +72,10 @@ export default function SignUpForm({ className, ...props }) {
               First Name
             </label>
             <Input
-            disabled={loading}
-            name="firstName"
-            {...register('firstName', { required: 'First Name is required' })}
+              icon={'profile'}
+              disabled={loading}
+              name="firstName"
+              {...register('firstName', { required: 'First Name is required' })}
             />
             {errors.firstName && (
               <p className="text-rose-600 tracking-wide text-sm font-semibold">
@@ -89,7 +90,8 @@ export default function SignUpForm({ className, ...props }) {
               Last Name
             </label>
             <Input
-            disabled={loading}
+              icon={'profile'}
+              disabled={loading}
               name="lastName"
               {...register('lastName', { required: 'Last Name is required' })}
             />
@@ -109,6 +111,7 @@ export default function SignUpForm({ className, ...props }) {
           <Input
             disabled={loading}
             name="phone"
+            icon="phone"
             {...register('phone', {
               required: 'Contact number is required',
               pattern: {
@@ -131,8 +134,8 @@ export default function SignUpForm({ className, ...props }) {
           </label>
           <Input
             disabled={loading}
-
             name="whatsappNo"
+            icon="whatsapp"
             {...register('whatsappNo', {
               required: 'WhatsApp number is required',
               pattern: {
@@ -152,8 +155,8 @@ export default function SignUpForm({ className, ...props }) {
         <div className="flex flex-col gap-y-3">
           <label className="text-primary-foreground text-[16px]">Email</label>
           <Input
+            icon="mail"
             disabled={loading}
-
             name="email"
             {...register('email', { required: 'Email is required' })}
           />
@@ -168,7 +171,6 @@ export default function SignUpForm({ className, ...props }) {
           <label className="text-primary-foreground text-[16px]">State</label>
           <Input
             disabled={loading}
-
             name="state"
             {...register('state', { required: 'State is required' })}
           />
@@ -186,7 +188,6 @@ export default function SignUpForm({ className, ...props }) {
           </label>
           <PasswordInput
             disabled={loading}
-
             name="password"
             type="password"
             {...register('password', {
@@ -211,7 +212,6 @@ export default function SignUpForm({ className, ...props }) {
           </label>
           <PasswordInput
             disabled={loading}
-
             name="confirmPassword"
             type="password"
             {...register('confirmPassword', {

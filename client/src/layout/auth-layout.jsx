@@ -7,7 +7,9 @@ import { useSelector } from 'react-redux'
 export default function AuthLayout() {
   const { isLoggedIn } = useSelector((state) => state.auth)
 
-  return !isLoggedIn ? (
+  return isLoggedIn ? (
+    <Navigate to={'/admin/users'} />
+  ) : (
     <section className="flex flex-col min-h-screen">
       <AuthNav />
       <div className="flex-1">
@@ -15,7 +17,5 @@ export default function AuthLayout() {
       </div>
       <Footer />
     </section>
-  ) : (
-    <Navigate to={'/admin/users'} />
   )
 }
