@@ -180,15 +180,15 @@ export default function DataTable({ labels, data, loading }) {
         </thead>
         <tbody>
           {loading &&
-            Array(6)
+            Array(10)
               .fill(0)
               .map((_, index) => (
                 <tr key={index} className="border-b border-neutral-400 mb-2">
-                  <td className="bg-neutral-600/20 mb-2 py-[1rem] animate-pulse"></td>
-                  <td className="bg-neutral-600/20 mb-2 py-[1rem] animate-pulse"></td>
-                  <td className="bg-neutral-600/20 mb-2 py-[1rem] animate-pulse"></td>
-                  <td className="bg-neutral-600/20 mb-2 py-[1rem] animate-pulse"></td>
-                  <td className="bg-neutral-600/20 mb-2 py-[1rem] animate-pulse"></td>
+                  <td className="bg-neutral-600/20 mb-2 py-[1.4rem] animate-pulse"></td>
+                  <td className="bg-neutral-600/20 mb-2 py-[1.4rem] animate-pulse"></td>
+                  <td className="bg-neutral-600/20 mb-2 py-[1.4rem] animate-pulse"></td>
+                  <td className="bg-neutral-600/20 mb-2 py-[1.4rem] animate-pulse"></td>
+                  <td className="bg-neutral-600/20 mb-2 py-[1.4rem] animate-pulse"></td>
                 </tr>
               ))}
           {!loading &&

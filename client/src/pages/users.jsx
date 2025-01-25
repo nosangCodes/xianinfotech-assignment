@@ -59,6 +59,28 @@ export default function Users() {
     fetchUsers()
   }, [fetchUsers]) // Add fetchUsers as a dependency
 
+  const handleEditUser = async (userId, data) => {
+    console.log('🚀 ~ handleEditUser ~ data:', data)
+    if (!data) return
+    try {
+      const res = await axiosInstance.patch(`/api/user/${userId}`, {
+        ...data,
+      })
+      if (res.status !== 200) {
+        throw new Error('Failed to update user')
+      }
+      fetchUsers()
+      alert('User updated successfully')
+      return true
+    } catch (error) {
+      console.error('FAILED TO UPDATE USER', error)
+      if (error?.response?.data?.error) {
+        alert(error?.response?.data?.error)
+        return false
+      }
+    }
+  }
+
   const tableData = []
   users.map((user) => {
     const row = [
@@ -101,8 +123,9 @@ export default function Users() {
       </div>
       <ViewEditUserModal
         open={Boolean(selectedUser)}
-        user={selectedUser}
+        userId={selectedUser}
         onClose={() => setSelectedUser(null)}
+        editHandler={handleEditUser}
       />
     </>
   )

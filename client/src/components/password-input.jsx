@@ -7,7 +7,7 @@ const PasswordInput = React.forwardRef(
     return (
       <div
         className={twMerge(
-          'border flex flex-row items-center bg-primary-foreground rounded-md border-primary-foreground focus-within:ring-1 ring-cyan-100 focus-within:shadow-md disabled:opacity-70',
+          'border flex flex-row items-center bg-primary-foreground rounded-md border-primary-foreground focus-within:ring-1 ring-cyan-100 focus-within:shadow-md',
           className,
         )}
       >
@@ -15,7 +15,7 @@ const PasswordInput = React.forwardRef(
           ref={ref}
           {...props}
           type={showPassword ? 'text' : 'password'}
-          className="focus-visible:ring-0 text-lg py-2 px-3 w-full focus-visible:outline-none focus-visible:ring-ring"
+          className="focus-visible:ring-0 text-lg py-2 px-3 w-full focus-visible:outline-none focus-visible:ring-ring disabled:bg-zinc-900/20 disabled:text-neutral-500/30 disabled:animate-pulse"
         />
         <img
           onClick={() => setShowPassword((prev) => !prev)}

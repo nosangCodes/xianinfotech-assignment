@@ -12,7 +12,7 @@ const DropDown = React.forwardRef(
       >
         <select
           ref={ref}
-          className="focus-visible:ring-0 text-lg py-2 px-3 w-full focus-visible:outline-none focus-visible:ring-ring"
+          className="focus-visible:ring-0 text-lg py-2 px-3 w-full focus-visible:outline-none focus-visible:ring-ring disabled:bg-zinc-900/20 disabled:text-neutral-500/30 disabled:animate-pulse"
           {...props}
         >
           {items.map((item, index) => (

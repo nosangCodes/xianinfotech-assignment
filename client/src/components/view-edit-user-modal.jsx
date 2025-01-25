@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import Input from './input'
 import { useForm } from 'react-hook-form'
@@ -6,32 +6,50 @@ import Button from './button'
 import DropDown from './drop-down'
 import axiosInstance from '../axios'
 
-export default function ViewEditUserModal({ userId, open, onClose }) {
+export default function ViewEditUserModal({
+  userId,
+  open,
+  onClose,
+  editHandler,
+}) {
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors, isLoading, isSubmitting },
     setValue,
   } = useForm()
-  const loading = isLoading || isSubmitting
+  const [fetching, setFetching] = useState(false)
+  const loading = isLoading || isSubmitting || fetching
 
   const fetchUserById = useCallback(async () => {
+    console.log('🚀 ~ fetchUserById ~ userId:', userId)
     if (!userId) return
     try {
+      setFetching(true)
       const res = await axiosInstance.get(
         `http://localhost:4000/api/user/${userId}`,
       )
       if (res.status === 200) {
-        // setValue("")
+        console.log('🚀 ~ fetchUserById ~ res:', res.data)
+        setValue('firstName', res.data?.firstName)
+        setValue('email', res.data?.email)
+        setValue('phone', res.data?.phone)
+        setValue('status', res.data?.status ? 'Active' : 'Inactive')
       }
     } catch (error) {
       console.error('error fetching user by id')
+    } finally {
+      setFetching(false)
     }
   }, [userId])
 
   useEffect(() => {
     fetchUserById()
+    return () => {
+      reset()
+    }
   }, [fetchUserById])
 
   const onSubmit = async (data) => {
@@ -44,18 +62,17 @@ export default function ViewEditUserModal({ userId, open, onClose }) {
       console.log('missing user Id')
       return
     }
-    try {
-      const res = await axiosInstance.patch(`/api/user/${userId}`, {
-        ...data,
-        status: data.status === 'Active' ? true : false,
-      })
-      if (res.status !== 200) {
-        throw new Error('Failed to update user')
-      }
-      alert('User updated successfully')
-    } catch (error) {
-      console.error('FAILED TO UPDATE USER', error)
-      alert('Failed to update user')
+
+    console.log('🚀 ~ onSubmit ~ data:', data)
+    console.log(data.status === 'Active')
+    const res = await editHandler(userId, {
+      ...data,
+      status: data.status === 'Active' ? true : false,
+    })
+    console.log('🚀 ~ onSubmit ~ res:', res)
+    if (res) {
+      reset()
+      onClose()
     }
   }
   return (
@@ -63,7 +80,7 @@ export default function ViewEditUserModal({ userId, open, onClose }) {
       <div
         className={twMerge(
           'fixed center-fix flex max-md:overflow-y-scroll flex-col z-20 max-h-[90vh] min-h-[500px] w-[90%] md:w-[70%] bg-white rounded-xl',
-          !open ? 'block' : 'hidden',
+          open ? 'block' : 'hidden',
         )}
       >
         <div className="bg-primary sticky top-0 text-primary-foreground py-4 text-center rounded-t-xl">
@@ -218,7 +235,7 @@ export default function ViewEditUserModal({ userId, open, onClose }) {
         onClick={onClose}
         className={twMerge(
           'fixed inset-0 z-10 bg-neutral-900/80',
-          !open ? 'block' : 'hidden',
+          open ? 'block' : 'hidden',
         )}
       />
     </>
