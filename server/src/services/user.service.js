@@ -67,9 +67,11 @@ export async function updateUser(userId, updateBody) {
   }
 }
 
-export async function searchByName(search = "") {
+export async function searchByName(page = 1, limit = 10, search = "") {
   try {
-    const res = await db.user.findMany({
+    const users = await db.user.findMany({
+      skip: (page - 1) * limit,
+      take: limit,
       where: {
         userType: "CLIENT",
         OR: [
@@ -96,7 +98,27 @@ export async function searchByName(search = "") {
         status: true,
       },
     });
-    return res;
+    const items = await db.user.count({
+      where: {
+        userType: "CLIENT",
+        OR: [
+          {
+            firstName: {
+              contains: search,
+              mode: "insensitive", // Case-insensitive search
+            },
+          },
+          {
+            lastName: {
+              contains: search,
+              mode: "insensitive", // Case-insensitive search
+            },
+          },
+        ],
+      },
+    });
+    const pages = Math.ceil(items / limit);
+    return { users, page: page, limit: limit, items, pages };
   } catch (error) {
     console.error("ERROR SEARCHING USER", error);
     throw error;

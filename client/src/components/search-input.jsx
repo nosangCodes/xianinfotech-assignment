@@ -1,9 +1,11 @@
 import React from 'react'
 
-export default function SearchInput() {
+export default function SearchInput({ value, onChange }) {
   return (
     <div className="flex md:w-[340px] flex-row  items-center border rounded-md">
       <input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         placeholder="Search..."
         type="text"
         className="focus-visible:ring-0 focus-visible:outline-none focus-visible:ring-ring w-full text-base py-1 px-3"

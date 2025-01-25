@@ -28,7 +28,7 @@ GET http://localhost:4000/api/user
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzkyMTJmMzk0Y2RlOTliMTI4ZGU5OTMiLCJpYXQiOjE3Mzc3ODc4NjUsImV4cCI6MTczNzgzMTA2NX0.tJM2ROWJfN_x7nhbGmW6-4IYZXiGj2kOw_hXC6rew-s
 
 ###
-GET http://localhost:4000/api/user/search?search="jo"
+GET http://localhost:4000/api/user/search?search=jo
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzkyMTJmMzk0Y2RlOTliMTI4ZGU5OTMiLCJpYXQiOjE3Mzc3ODc4NjUsImV4cCI6MTczNzgzMTA2NX0.tJM2ROWJfN_x7nhbGmW6-4IYZXiGj2kOw_hXC6rew-s
 
 ###

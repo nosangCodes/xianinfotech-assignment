@@ -58,15 +58,17 @@ export async function updateUser(req, res) {
 export async function searchByName(req, res) {
   try {
     const search = req.query?.search;
+    const page = req.query?.page;
+    const limit = req.query?.limit;
     if (!search) {
       return res.status(status.BAD_REQUEST).json({
         error: "missing queries",
       });
     }
-    
-    const users = await userService.searchByName(search);
+
+    const users = await userService.searchByName(page, limit, search);
     console.log("🚀 ~ searchByName ~ users:", users);
-    return res.json({ users });
+    return res.json(users);
   } catch (error) {
     console.error("ERROR SEARCHING USER", error);
     return res.status(status.INTERNAL_SERVER_ERROR, error);
