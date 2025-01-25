@@ -227,7 +227,7 @@ export default function ViewEditUserModal({
               'mt-auto bg-primary rounded-lg text-lg text-primary-foreground py-3 mx-7 md:mx-auto'
             }
           >
-            save Changes
+            Save Changes
           </Button>
         </form>
       </div>
