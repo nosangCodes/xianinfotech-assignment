@@ -29,6 +29,42 @@ export async function userList(page = 1, limit = 10) {
   }
 }
 
+export async function userByEmail(email) {
+  try {
+    const user = await db.user.findUnique({
+      where: {
+        email: email,
+      },
+      select: {
+        id: true,
+        email: true,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.error("ERROR FETCHING USER BY EMAIL");
+    throw error;
+  }
+}
+
+export async function userByPhone(phone) {
+  try {
+    const user = await db.user.findUnique({
+      where: {
+        phone,
+      },
+      select: {
+        id: true,
+        phone: true,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.error("ERROR FETCHING USER BY PHONE");
+    throw error;
+  }
+}
+
 export async function userById(userId) {
   try {
     const user = await db.user.findUnique({
@@ -43,6 +79,7 @@ export async function userById(userId) {
         phone: true,
         email: true,
         state: true,
+        status: true,
       },
     });
     return user;
@@ -62,7 +99,7 @@ export async function updateUser(userId, updateBody) {
     });
     return res;
   } catch (error) {
-    console.error("ERROR UPDATING USER", error);
+    console.error("service:ERROR UPDATING USER", error);
     throw error;
   }
 }

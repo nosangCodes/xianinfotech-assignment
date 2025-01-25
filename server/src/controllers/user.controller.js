@@ -9,7 +9,7 @@ export async function userList(req, res) {
     return res.json(users);
   } catch (error) {
     console.error("ERROR FETCHING USER LIST", error);
-    return res.status(status.INTERNAL_SERVER_ERROR, error);
+    return res.status(status.INTERNAL_SERVER_ERROR).json({ error });
   }
 }
 
@@ -26,13 +26,15 @@ export async function userById(req, res) {
     return res.json(user);
   } catch (error) {
     console.error("ERROR FETCHING USER LIST", error);
-    return res.status(status.INTERNAL_SERVER_ERROR, error);
+    return res.status(status.INTERNAL_SERVER_ERROR).json({ error });
   }
 }
 
 export async function updateUser(req, res) {
   try {
     const userId = req.params?.userId;
+    const email = req.body.email;
+    const phone = req.body.phone;
     if (!userId) {
       return res.status(status.BAD_REQUEST).json({
         error: "missing params",
@@ -45,13 +47,28 @@ export async function updateUser(req, res) {
         error: "user not found",
       });
 
+    const mailUser = await userService.userByEmail(email);
+    const phoneUser = await userService.userByPhone(phone);
+    if (mailUser?.id && mailUser.id !== userId) {
+      return res
+        .status(status.BAD_REQUEST)
+        .json({ error: "User with this email already exists" });
+    }
+    if (phoneUser?.id && phoneUser.id !== userId) {
+      return res
+        .status(status.BAD_REQUEST)
+        .json({ error: "User with this contact already exists" });
+    }
+
     await userService.updateUser(userId, req.body);
     return res.json({
       message: "user updated successfully",
     });
   } catch (error) {
-    console.error("ERROR UPDATING USER", error);
-    return res.status(status.INTERNAL_SERVER_ERROR, error);
+    console.error("controller:ERROR UPDATING USER", error);
+    return res.status(status.INTERNAL_SERVER_ERROR).json({
+      error,
+    });
   }
 }
 
@@ -71,6 +88,6 @@ export async function searchByName(req, res) {
     return res.json(users);
   } catch (error) {
     console.error("ERROR SEARCHING USER", error);
-    return res.status(status.INTERNAL_SERVER_ERROR, error);
+    return res.status(status.INTERNAL_SERVER_ERROR).json({ error });
   }
 }
