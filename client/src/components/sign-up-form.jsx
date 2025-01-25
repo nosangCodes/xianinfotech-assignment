@@ -23,7 +23,6 @@ export default function SignUpForm({ className, ...props }) {
   const navigate = useNavigate()
 
   const onSubmit = async (data) => {
-    console.log('Form Submitted:', data)
     delete data.confirmPassword
     delete data.agreeTerms
 

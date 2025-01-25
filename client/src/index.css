@@ -4,3 +4,8 @@
   --color-primary: #043b64;
   --color-primary-foreground: #ffffff;
 }
+.center-fix {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

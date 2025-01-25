@@ -7,18 +7,17 @@ const icons = {
 }
 
 const Input = React.forwardRef(
-  ({ className, icon = 'profile', ...props }, ref) => {
+  ({ className, icon, ...props }, ref) => {
     return (
       <div
         className={twMerge(
-          'border flex flex-row items-center bg-primary-foreground rounded-md border-primary-foreground focus-within:ring-1 ring-cyan-100 focus-within:shadow-md disabled:opacity-70',
+          'border flex overflow-hidden flex-row items-center bg-primary-foreground rounded-md border-primary-foreground focus-within:ring-1 ring-cyan-100 focus-within:shadow-md disabled:opacity-70',
           className,
         )}
       >
         <input
           ref={ref}
           {...props}
-          // {...register(props.name, { required: props.required })}
           className="focus-visible:ring-0 text-lg py-2 px-3 w-full focus-visible:outline-none focus-visible:ring-ring"
         />
         {icon && (
