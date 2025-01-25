@@ -1,3 +1,9 @@
+# Context
+- [API docs](#api-documentation)
+- [Admin Panel](#admin-panel)
+
+
+
 # API Documentation
 
 ## Base URL
