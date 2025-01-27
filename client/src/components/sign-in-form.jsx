@@ -65,9 +65,14 @@ export default function SignInForm({ className }) {
           <Input
             disabled={loading}
             name="email"
-            type="email"
             icon="profile"
-            {...register('email', { required: 'Email address is required' })}
+            {...register('email', {
+              required: 'Email address is required',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'invalid email address',
+              },
+            })}
           />
           {errors.email && (
             <p className="text-rose-600 tracking-wide text-sm font-semibold">

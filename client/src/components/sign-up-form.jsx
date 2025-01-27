@@ -158,7 +158,13 @@ export default function SignUpForm({ className, ...props }) {
             icon="mail"
             disabled={loading}
             name="email"
-            {...register('email', { required: 'Email is required' })}
+            {...register('email', {
+              required: 'Email is required',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'invalid email address',
+              },
+            })}
           />
           {errors.email && (
             <p className="text-rose-600 tracking-wide text-sm font-semibold">

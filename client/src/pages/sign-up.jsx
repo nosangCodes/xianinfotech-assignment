@@ -4,7 +4,7 @@ import SignUpForm from '../components/sign-up-form'
 export default function SignUp() {
   return (
     <section>
-      <div className="bg-primary rounded-xl mx-4 md:mx-[6rem] my-[4rem] flex md:items-center md:h-[140vh] overflow-hidden">
+      <div className="bg-primary rounded-xl mx-4 md:mx-[6rem] my-[4rem] flex md:items-center md: h-[180vh] md:max-h-[190vh]">
         {/* Image Section */}
         <div className="w-1/2 h-full max-md:hidden">
           <img
