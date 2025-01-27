@@ -31,8 +31,8 @@
   "firstName": "Jane",
   "lastName": "Doe",
   "userType": "CLIENT",
-  "phone": "+1234567112",
-  "whatsappNo": "+1234567212",
+  "phone": "1234567112",
+  "whatsappNo": "1234567212",
   "email": "janedoe@mail.com",
   "state": "California",
   "password": "test"
